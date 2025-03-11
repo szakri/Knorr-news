@@ -1,4 +1,4 @@
-namespace Knorr_news.Models
+namespace KnorrNews.Models
 {
     public class ErrorViewModel
     {

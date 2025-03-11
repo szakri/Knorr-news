@@ -1,4 +1,8 @@
-namespace Knorr_news
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Models.Models;
+
+namespace KnorrNews
 {
     public class Program
     {
@@ -8,6 +12,11 @@ namespace Knorr_news
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<KnorrNewsContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(KnorrNewsContext))));
+
+            builder.Services.AddScoped<IRepository<KnorrNewsContext, News>, NewsRepository>();
 
             var app = builder.Build();
 

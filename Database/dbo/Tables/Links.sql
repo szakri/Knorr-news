@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Links]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+	[Url] NVARCHAR(2048) NOT NULL,
+	[NewsId] INT NOT NULL,
+	CONSTRAINT FK_Links_News FOREIGN KEY ([NewsId]) REFERENCES [dbo].[News]([Id]),
+)

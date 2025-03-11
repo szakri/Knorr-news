@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knorr-news", "Knorr-news\Kn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzFunctions", "AzFunctions\AzFunctions.csproj", "{4AFD190A-F448-4914-B23A-3620E8995F42}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{BD3F273C-6588-43C1-A576-FBB6486DB57D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{EDBAFA00-4C79-431C-AB18-1FFF8DD7EC42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{C1D30B7F-BB2E-4FAC-AF56-599A7208F9AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,20 @@ Global
 		{4AFD190A-F448-4914-B23A-3620E8995F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFD190A-F448-4914-B23A-3620E8995F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFD190A-F448-4914-B23A-3620E8995F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3F273C-6588-43C1-A576-FBB6486DB57D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EDBAFA00-4C79-431C-AB18-1FFF8DD7EC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDBAFA00-4C79-431C-AB18-1FFF8DD7EC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDBAFA00-4C79-431C-AB18-1FFF8DD7EC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDBAFA00-4C79-431C-AB18-1FFF8DD7EC42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D30B7F-BB2E-4FAC-AF56-599A7208F9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D30B7F-BB2E-4FAC-AF56-599A7208F9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D30B7F-BB2E-4FAC-AF56-599A7208F9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D30B7F-BB2E-4FAC-AF56-599A7208F9AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

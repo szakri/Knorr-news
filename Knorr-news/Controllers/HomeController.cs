@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Knorr_news.Models;
+using KnorrNews.Models;
 
-namespace Knorr_news.Controllers;
+namespace KnorrNews.Controllers;
 
 public class HomeController : Controller
 {
