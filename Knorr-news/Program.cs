@@ -16,7 +16,7 @@ namespace KnorrNews
             builder.Services.AddDbContext<KnorrNewsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(KnorrNewsContext))));
 
-            builder.Services.AddScoped<IRepository<KnorrNewsContext, News>, NewsRepository>();
+            builder.Services.AddScoped<INewsRepository, NewsRepository>();
 
             var app = builder.Build();
 
