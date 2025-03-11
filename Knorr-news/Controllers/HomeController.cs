@@ -16,10 +16,19 @@ public class HomeController : Controller
         _repository = repository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var a = _repository.GetListAsync().Result;
-        return View();
+        var news = (await _repository.GetListAsync()).Select(n => new NewsViewModel
+        {
+            Id = n.Id,
+            Title = n.Title,
+            Summary = n.Summary,
+            Source = n.Source,
+            PublishDate = n.PublishDate,
+            Link = n.Links.FirstOrDefault()?.Url ?? string.Empty
+        }).ToList();
+
+        return View(news);
     }
 
     public IActionResult Privacy()

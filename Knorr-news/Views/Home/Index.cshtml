@@ -1,8 +1,90 @@
-﻿@{
+﻿@model List<NewsViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<head>
+    <style>
+        .card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        }
+
+        .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .card-footer {
+        margin-top: auto;
+        }
+
+        .card:hover {
+        transform: scale(1.03);
+        }
+    </style>
+</head>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsTitle" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newsTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><span id="newsSummary"></span></p>
+                <p><strong>Source:</strong> <span id="newsSource"></span></p>
+                <p><small class="text-muted">Published: <span id="newsPublishDate"></span></small></p>
+            </div>
+            <div class="modal-footer">
+                <a id="newsLink" href="#" target="_blank" class="btn btn-primary">Read Full Article</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(title, summary, source, date, link) {
+        document.getElementById('newsTitle').textContent = title;
+        document.getElementById('newsSummary').textContent = summary;
+        document.getElementById('newsSource').textContent = source;
+        document.getElementById('newsPublishDate').textContent = date;
+        document.getElementById('newsLink').href = link;
+
+        var newsModal = new bootstrap.Modal(document.getElementById('newsModal'));
+        newsModal.show();
+    }
+</script>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Latest News</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var news in Model)
+        {
+            <div class="col d-flex">
+                <a href="#" class="card-link w-100">
+                    <div class="card shadow-sm h-100" onclick="openModal('@news.Title', '@news.Summary', '@news.Source', '@news.PublishDate', '@news.Link')">
+                        <div class="card-body">
+                            <h5 class="card-title">@news.Title</h5>
+                            <p class="card-text"><small class="text-muted">Published: @news.PublishDate</small></p>
+                        </div>
+                        <div class="card-footer text-center bg-light">
+                            <p class="card-text"><strong>Source:</strong> @news.Source</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
 </div>

@@ -23,7 +23,7 @@ public partial class KnorrNewsContext : DbContext
     {
         modelBuilder.Entity<Author>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0749542F3B");
+            entity.HasKey(e => e.Id).HasName("PK__Authors__3214EC078C132563");
 
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -37,7 +37,7 @@ public partial class KnorrNewsContext : DbContext
 
         modelBuilder.Entity<Link>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC076FC9BD91");
+            entity.HasKey(e => e.Id).HasName("PK__Links__3214EC07AE8F5FC1");
 
             entity.Property(e => e.Url)
                 .IsRequired()
@@ -51,9 +51,12 @@ public partial class KnorrNewsContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0764CBFDE9");
+            entity.HasKey(e => e.Id).HasName("PK__News__3214EC076376C432");
 
             entity.Property(e => e.PublishDate).HasColumnType("datetime");
+            entity.Property(e => e.Source)
+                .IsRequired()
+                .HasMaxLength(255);
             entity.Property(e => e.Summary).IsRequired();
             entity.Property(e => e.Title)
                 .IsRequired()
