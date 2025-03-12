@@ -1,37 +1,8 @@
-﻿@model List<NewsViewModel>
+﻿@using Common.Helpers
+@model PaginatedList<NewsViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Latest news";
 }
-
-<head>
-    <style>
-        .card-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        }
-
-        .card {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        }
-
-        .card-body {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        }
-
-        .card-footer {
-        margin-top: auto;
-        }
-
-        .card:hover {
-        transform: scale(1.03);
-        }
-    </style>
-</head>
 
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsTitle" aria-hidden="true">
@@ -53,8 +24,54 @@
     </div>
 </div>
 
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Latest News</h2>
+
+    <!-- Filtering Controls -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <input type="text" id="searchTitle" class="form-control" placeholder="Search news by keyword...">
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="searchSource" class="form-control" placeholder="Search news by source...">
+        </div>
+    </div>
+
+    <div id="newsContainer">
+        @await Html.PartialAsync("_NewsList", Model)
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).on("click", ".pagination a", function (e) {
+        e.preventDefault();
+        var page = $(this).data("page");
+        loadPage(page);
+    });
+
+    $("#searchTitle, #searchSource").on("input change", function () {
+        var page = $(this).data("page");
+        loadPage(page);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("searchTitle").value = "";
+        document.getElementById("searchSource").value = "";
+    });
+
+    function loadPage(page) {
+        var title = $("#searchTitle").val();
+        var source = $("#searchSource").val();
+
+        $.get("/Home/FilterNews", { title: title, source: source, page: page }, function (data) {
+            $("#newsContainer").html(data);
+        });
+    }
+
     function openModal(title, summary, source, date, link) {
+        event.preventDefault();
+
         document.getElementById('newsTitle').textContent = title;
         document.getElementById('newsSummary').textContent = summary;
         document.getElementById('newsSource').textContent = source;
@@ -65,26 +82,3 @@
         newsModal.show();
     }
 </script>
-
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Latest News</h2>
-
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var news in Model)
-        {
-            <div class="col d-flex">
-                <a href="#" class="card-link w-100">
-                    <div class="card shadow-sm h-100" onclick="openModal('@news.Title', '@news.Summary', '@news.Source', '@news.PublishDate', '@news.Link')">
-                        <div class="card-body">
-                            <h5 class="card-title">@news.Title</h5>
-                            <p class="card-text"><small class="text-muted">Published: @news.PublishDate</small></p>
-                        </div>
-                        <div class="card-footer text-center bg-light">
-                            <p class="card-text"><strong>Source:</strong> @news.Source</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        }
-    </div>
-</div>

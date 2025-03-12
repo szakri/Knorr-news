@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Authors]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-	[Name] NVARCHAR(255) NOT NULL,
-	[NewsId] INT NOT NULL,
-	CONSTRAINT FK_Authors_News FOREIGN KEY ([NewsId]) REFERENCES [dbo].[News]([Id]),
-)

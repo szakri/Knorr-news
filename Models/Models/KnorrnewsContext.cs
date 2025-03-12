@@ -13,31 +13,15 @@ public partial class KnorrNewsContext : DbContext
     {
     }
 
-    public virtual DbSet<Author> Authors { get; set; }
-
     public virtual DbSet<Link> Links { get; set; }
 
     public virtual DbSet<News> News { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Author>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Authors__3214EC078C132563");
-
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(255);
-
-            entity.HasOne(d => d.News).WithMany(p => p.Authors)
-                .HasForeignKey(d => d.NewsId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Authors_News");
-        });
-
         modelBuilder.Entity<Link>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Links__3214EC07AE8F5FC1");
+            entity.HasKey(e => e.Id).HasName("PK__Links__3214EC07E4363D89");
 
             entity.Property(e => e.Url)
                 .IsRequired()
@@ -51,7 +35,7 @@ public partial class KnorrNewsContext : DbContext
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__News__3214EC076376C432");
+            entity.HasKey(e => e.Id).HasName("PK__News__3214EC07AB3AC099");
 
             entity.Property(e => e.PublishDate).HasColumnType("datetime");
             entity.Property(e => e.Source)

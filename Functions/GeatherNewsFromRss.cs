@@ -1,4 +1,3 @@
-using System;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using DataAccess;
@@ -50,10 +49,6 @@ namespace Functions
                             Summary = item.Summary.Text,
                             PublishDate = item.PublishDate.DateTime,
                             Source = rss.Key,
-                            Authors = item.Authors.Select(a => new Author
-                            {
-                                Name = a.Name
-                            }).ToList(),
                             Links = item.Links.Select(l => new Link
                             {
                                 Url = l.Uri.ToString()

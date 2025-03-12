@@ -14,15 +14,19 @@ namespace DataAccess
 
         public async Task<List<News>> GetListAsync()
         {
-            return await _dbContext.News.Include(n => n.Authors)
-                .Include(n => n.Links)
+            return await _dbContext.News.Include(n => n.Links)
                 .OrderByDescending(n => n.PublishDate)
                 .ToListAsync();
         }
 
+        public IQueryable<News> GetQueryable()
+        {
+            return _dbContext.News.Include(n => n.Links);
+        }
+
         public async Task<News> GetAsync(int id)
         {
-            var entity = await _dbContext.News.Include(n => n.Authors).Include(n => n.Links)
+            var entity = await _dbContext.News.Include(n => n.Links)
                 .FirstOrDefaultAsync(n => n.Id == id);
             if (entity == null)
             {

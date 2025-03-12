@@ -6,6 +6,8 @@ namespace DataAccess
     {
         public Task<List<News>> GetListAsync();
 
+        public IQueryable<News> GetQueryable();
+
         public Task<News> GetAsync(int id);
 
         public Task<bool> HasNewsAsync(string newsTitle);

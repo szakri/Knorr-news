@@ -15,10 +15,6 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[Authors]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Links]",
          "ObjectType": 0
       },
