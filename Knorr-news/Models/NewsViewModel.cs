@@ -10,7 +10,6 @@
 
         public DateTime PublishDate { get; set; }
 
-
         public required string Link { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Models.Models;
 
 namespace DataAccess
@@ -30,7 +31,7 @@ namespace DataAccess
                 .FirstOrDefaultAsync(n => n.Id == id);
             if (entity == null)
             {
-                throw new Exception("Entity not found");
+                throw new EntityNotFoundException("Entity not found");
             }
             return entity;
         }
@@ -43,6 +44,7 @@ namespace DataAccess
         public async Task AddAsync(News entity)
         {
             await _dbContext.News.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<News> entity)

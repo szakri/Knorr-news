@@ -56,11 +56,6 @@ public class HomeController : Controller
         return PartialView("_NewsList", PaginatedList<NewsViewModel>.Create(filteredNews, page));
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

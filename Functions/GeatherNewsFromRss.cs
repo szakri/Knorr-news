@@ -26,50 +26,56 @@ namespace Functions
         }
 
         [Function("GeatherNewsFromRss")]
-        public async Task Run([TimerTrigger("*/10 * * * * *")] TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 */15 * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation("GeatherNewsFromRss started");
 
-            var news = new List<News>();
-            foreach (var rss in rssUrls)
+            try
             {
-                var reader = XmlReader.Create(rss.Value);
-                var feed = SyndicationFeed.Load(reader);
-                reader.Close();
-
-                foreach (var item in feed.Items)
+                var news = new List<News>();
+                foreach (var rss in rssUrls)
                 {
-                    var title = item.Title.Text;
+                    var reader = XmlReader.Create(rss.Value);
+                    var feed = SyndicationFeed.Load(reader);
+                    reader.Close();
 
-                    if (!await _repository.HasNewsAsync(title))
+                    foreach (var item in feed.Items)
                     {
-                        news.Add(new News
+                        var title = item.Title.Text;
+
+                        if (!await _repository.HasNewsAsync(title))
                         {
-                            Title = item.Title.Text,
-                            Summary = item.Summary.Text,
-                            PublishDate = item.PublishDate.DateTime,
-                            Source = rss.Key,
-                            Links = item.Links.Select(l => new Link
+                            news.Add(new News
                             {
-                                Url = l.Uri.ToString()
-                            }).ToList()
-                        });
+                                Title = item.Title.Text,
+                                Summary = item.Summary.Text,
+                                PublishDate = item.PublishDate.DateTime,
+                                Source = rss.Key,
+                                Links = item.Links.Select(l => new Link
+                                {
+                                    Url = l.Uri.ToString()
+                                }).ToList()
+                            });
+                        }
                     }
                 }
-            }
 
-            foreach (var item in news)
-            {
-                if (await _repository.HasNewsAsync(item.Title))
+                foreach (var item in news)
                 {
-                    news.Remove(item);
+                    if (await _repository.HasNewsAsync(item.Title))
+                    {
+                        news.Remove(item);
+                    }
                 }
+
+                await _repository.AddRangeAsync(news);
+
+                _logger.LogInformation($"{news.Count} news were added successfuly");
             }
-
-            await _repository.AddRangeAsync(news);
-
-            _logger.LogInformation($"{news.Count} news were added successfuly");
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while geathering news from RSS");
+            }
             _logger.LogInformation("GeatherNewsFromRss ended");
         }
     }
